@@ -3,7 +3,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useToast } from '@/components/ui/use-toast'
 // библиотека всплывающего окна при успешной авторизации
 
-import {  Form,
+import {
+  Form,
   FormControl,
   FormField,
   FormItem,
@@ -35,15 +36,14 @@ import { useUserContext } from '@/context/AuthContext'
 
 const SignupForm = () => {
   const { toast } = useToast()
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   /* вытаскиваем все из quieriesAndMuttations */
-  const { checkAuthUser} = useUserContext();
+  const { checkAuthUser } = useUserContext()
 
   // Queries централизованное сосояние ПЕРВОЕ это функция создания пользователя ВТОРОЕ это стейт загрузки создания пользователя
   const { mutateAsync: createUserAccount, isPending: isCreatingAccount } =
     useCreateUserAccount()
-  const { mutateAsync: signInAccount} =
-    useSignInAccount()
+  const { mutateAsync: signInAccount } = useSignInAccount()
 
   // обозначаем форму с помощью Zod для проверки правильности ввода
   const form = useForm<z.infer<typeof SingupValidation>>({
@@ -84,122 +84,119 @@ const SignupForm = () => {
     }
 
     /* проверяем аторизирован ли пользователь в AuthContext*/
-    const isLoggedIn = await checkAuthUser();
+    const isLoggedIn = await checkAuthUser()
 
     /* если да */
     if (isLoggedIn) {
-      form.reset();
+      form.reset()
 
-      navigate("/");
+      navigate('/')
     } else {
-      
-      
-      return toast({ title: "Вход неудался. Попробуйте еще раз.", });
-    }  
-};
-
-    return (
-      /* логотип и сообщение новому пользователю */
-      <Form {...form}>
-        <div className="sm:w-420 flex-center flex-col">
-          <img src="/assets/images/logo.png" alt="logo" width={300}/>
-
-          <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">
-            Создать новый аккаунт
-          </h2>
-          <p className="text-light-3 small-medium md:base-regular mt-2">
-            Для использования Lypgraph, введите ваши данные
-          </p>
-
-          {/* тут будет непосредственно форма */}
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="flex flex-col gap-5 w-full mt-4"
-          >
-            {/* имя реальное */}
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Имя</FormLabel>
-                  <FormControl>
-                    <Input type="text" className="shad-input" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            {/* имя пользователя */}
-            <FormField
-              control={form.control}
-              name="username"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Логин</FormLabel>
-                  <FormControl>
-                    <Input type="text" className="shad-input" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            {/* почта */}
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Электронная почта</FormLabel>
-                  <FormControl>
-                    <Input type="email" className="shad-input" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            {/* пароль */}
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Пароль</FormLabel>
-                  <FormControl>
-                    <Input type="password" className="shad-input" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            {/* кнопка отправки заполненной формы */}
-            <Button type="submit" className="shad-button_primary">
-              {isCreatingAccount ? (
-                <div className="flex-center gap-2">
-                  <Loader /> Loading...
-                </div>
-              ) : (
-                'Присоединиться'
-              )}
-            </Button>
-            <p className="text-small-regular text-light-2 text-center mt-2">
-              Уже есть аккаунт?
-              <Link
-                to="/sign-in"
-                className="text-primary-500 text-small-semibold ml-1"
-              >
-                Войти
-              </Link>
-            </p>
-          </form>
-        </div>
-      </Form>
-    )
+      return toast({ title: 'Вход неудался. Попробуйте еще раз.' })
+    }
   }
 
+  return (
+    /* логотип и сообщение новому пользователю */
+    <Form {...form}>
+      <div className="sm:w-420 flex-center flex-col">
+        <img src="/assets/images/logo.png" alt="logo" width={300} />
+
+        <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">
+          Создать новый аккаунт
+        </h2>
+        <p className="text-light-3 small-medium md:base-regular mt-2">
+          Для использования Lypgraph, введите ваши данные
+        </p>
+
+        {/* тут будет непосредственно форма */}
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="flex flex-col gap-5 w-full mt-4"
+        >
+          {/* имя реальное */}
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Имя</FormLabel>
+                <FormControl>
+                  <Input type="text" className="shad-input" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/* имя пользователя */}
+          <FormField
+            control={form.control}
+            name="username"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Логин</FormLabel>
+                <FormControl>
+                  <Input type="text" className="shad-input" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/* почта */}
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Электронная почта</FormLabel>
+                <FormControl>
+                  <Input type="email" className="shad-input" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/* пароль */}
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Пароль</FormLabel>
+                <FormControl>
+                  <Input type="password" className="shad-input" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/* кнопка отправки заполненной формы */}
+          <Button type="submit" className="shad-button_primary">
+            {isCreatingAccount ? (
+              <div className="flex-center gap-2">
+                <Loader /> Loading...
+              </div>
+            ) : (
+              'Присоединиться'
+            )}
+          </Button>
+          <p className="text-small-regular text-light-2 text-center mt-2">
+            Уже есть аккаунт?
+            <Link
+              to="/sign-in"
+              className="text-primary-500 text-small-semibold ml-1"
+            >
+              Войти
+            </Link>
+          </p>
+        </form>
+      </div>
+    </Form>
+  )
+}
 
 export default SignupForm

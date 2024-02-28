@@ -120,19 +120,20 @@ export const useSearchPosts = (searchTerm: string) => {
     enabled: !!searchTerm,
   })
 }
-
-
+/* 
+Js mastery did his video in tanstack query v4. In v5 there is a initialpage param required. Try this, worked for me: */
 export const useGetPosts = () => {
   return useInfiniteQuery({
     queryKey: [QUERY_KEYS.GET_INFINITE_POSTS],
     queryFn: getInfinitePosts,
-    getNextPageParam: (lastPage) => {          
-      if (lastPage && lastPage?.documents.length === 0) {
+    getNextPageParam: (lastPage: any) => {          
+      if (!lastPage || lastPage.documents.length === 0) {
         return null
       }      
-      const lastId = lastPage?.documents[lastPage?.documents.length - 1].$id
+      const lastId = lastPage.documents[lastPage.documents.length - 1].$id
       return lastId
     },
+    initialPageParam: null,
   })
 }
 

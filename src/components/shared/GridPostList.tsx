@@ -4,8 +4,9 @@ import { Link } from "react-router-dom";
 import { PostStats } from "@/components/shared";
 import { useUserContext } from "@/context/AuthContext";
 
+/* posts={item?.documents} /> ниже мы поставили знак вопроса */
 type GridPostListProps = {
-  posts: Models.Document[];
+  posts?: Models.Document[];
   showUser?: boolean;
   showStats?: boolean;
 };
@@ -20,7 +21,7 @@ const GridPostList = ({
   return (
     <ul className="grid-container">
       {/* показываем сетку постов с более простым интерфейсом */}
-      {posts.map((post) => (
+      {posts?.map((post) => (
         <li key={post.$id} className="relative min-w-80 h-80">
           <Link to={`/posts/${post.$id}`} className="grid-post_link">
             <img

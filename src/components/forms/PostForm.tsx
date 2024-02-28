@@ -14,17 +14,20 @@ import {
   Button,
   Input,
   Textarea,
-} from '@/components/ui' 
+} from '@/components/ui'
 import { PostValidation } from '@/lib/validation'
 import { useToast } from '@/components/ui/use-toast'
 import { useUserContext } from '@/context/AuthContext'
 import { FileUploader, Loader } from '@/components/shared'
-import { useCreatePost, useUpdatePost } from '@/lib/react-query/queriesAndMutations'
+import {
+  useCreatePost,
+  useUpdatePost,
+} from '@/lib/react-query/queriesAndMutations'
 
 /* model.document получаем из appwrite */
 type PostFormProps = {
   post?: Models.Document
-  action: 'Создать' | 'Обновить'
+  action: 'Create' | 'Update'
 }
 
 /* обязательно нужно указывать тип получаемых данных */
@@ -33,7 +36,7 @@ const PostForm = ({ post, action }: PostFormProps) => {
   const { toast } = useToast()
   /* получаем id */
   const { user } = useUserContext()
-  
+
   const form = useForm<z.infer<typeof PostValidation>>({
     resolver: zodResolver(PostValidation),
     /* задаем значения по умолчанию для проверки формы */
@@ -55,7 +58,7 @@ const PostForm = ({ post, action }: PostFormProps) => {
   // Handler тут мы связыаемся с appwrite
   const handleSubmit = async (value: z.infer<typeof PostValidation>) => {
     // ACTION = UPDATE
-    if (post && action === 'Обновить') {
+    if (post && action === 'Update') {
       const updatedPost = await updatePost({
         ...value,
         postId: post.$id,

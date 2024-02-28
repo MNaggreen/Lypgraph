@@ -1,4 +1,4 @@
-import PostForm from "@/components/forms/PostForm";
+import PostForm from '@/components/forms/PostForm'
 
 const CreatePost = () => {
   return (
@@ -13,11 +13,11 @@ const CreatePost = () => {
           />
           <h2 className="h3-bold md:h2-bold text-left w-full">Создать Пост</h2>
         </div>
-{/* передаем команду создать для наших функций */}
-        <PostForm action="Создать" />
+        {/* передаем команду создать для наших функций */}
+        <PostForm action="Create" />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default CreatePost;
+export default CreatePost
