@@ -49,12 +49,12 @@ export const multiFormatDateString = (timestamp: string = ""): string => {
         return `${Math.floor(diffInDays)} дня назад`;  */
 
     case Math.floor(diffInDays) > 1 && diffInDays < 30:
-      return `${Math.floor(diffInDays)} дней назад`;
+      return `Около ${Math.floor(diffInDays)} дней назад`;
        
     case Math.floor(diffInHours) >= 1:
-      return `${Math.floor(diffInHours)} часов назад`;
+      return `Около ${Math.floor(diffInHours)} часов назад`;
     case Math.floor(diffInMinutes) >= 1:
-      return `${Math.floor(diffInMinutes)} минут назад`;
+      return `Около ${Math.floor(diffInMinutes)} минут назад`;
     default:
       return "Сейчас";
   }
